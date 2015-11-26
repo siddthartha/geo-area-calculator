@@ -21,23 +21,28 @@ use siddthartha\geo\area\helpers\math\EquivalentSphere;
  */
 class GeoAreaCalculator
 {
-
-        public static $a = 6378.137;
-        public static $f = 1. / 298.257223563;
-
         /**
          * 
          * @param float[][] $coordinates
+         * @param float $a
+         * @param float $f
          * @return float
+         * @throws Exception
          */
-        public static function getArea( $coordinates )
+        public static function getArea( $coordinates, $a = 6378.137, $f = 1. / 298.257223563 )
         {
                 if( !is_array( $coordinates ) || !is_array( $coordinates[ 0 ] ) )
                 {
                         throw new Exception( "Array of array of floats expected!" );
                 }
+                
+                if(        ( $coordinates[ 0 ][ 0 ] != $coordinates[  count( $coordinates ) - 1 ][ 0 ] )
+                        || ( $coordinates[ 0 ][ 1 ] != $coordinates[  count( $coordinates ) - 1 ][ 1 ] ) ) 
+                {
+                        $coordinates[] =  $coordinates[ 0 ];
+                }
 
-                $eqSph = new EquivalentSphere( self::$a, self::$f );
+                $eqSph = new EquivalentSphere( $a, $f );
 
                 $tau = 0.;
                 $i   = 1;

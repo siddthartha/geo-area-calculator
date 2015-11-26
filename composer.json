@@ -1,6 +1,7 @@
 {
     "name": "siddthartha/yii2-geo-area",
     "description": "Geographical area of given polygon in WGS84",
+    "type": "library",
     "minimum-stability": "dev",
     "license": "MIT",
     "authors": [
