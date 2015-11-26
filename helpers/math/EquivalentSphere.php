@@ -13,17 +13,17 @@
 namespace bigland\geo\area\helpers\math;
 
 /**
- * Description of Sphere
+ * Description of EquivalentSphere
  *
  * @author siddthartha
  */
 class EquivalentSphere
 {
+
         public $R_auth;
         public $to_auth2;
         public $to_auth4;
         public $to_auth6;
-
         public $a_e = 6371.0;
 
         /**
@@ -33,14 +33,15 @@ class EquivalentSphere
          */
         public function __construct( $a, $f )
         {
-                $b         = $a * (1. - $f);
-                $e2        = $f * (2. - $f);
-                $this->R_auth    = $b * sqrt( 1. + self::getPowSeries( $e2, 2. / 3., 3. / 5., 4. / 7. ) );
+                $b               = $a * (1. - $f);
+                $e2              = $f * (2. - $f);
+                $this->R_auth    = $b * sqrt( 1. + self::getPowSeries( $e2, 2. / 3., 3. / 5.,
+                                                                       4. / 7. ) );
                 $this->to_auth_2 = self::getPowSeries( $e2, -1. / 3., -31. / 180., -59. / 560. );
                 $this->to_auth_4 = self::getPowSeries( $e2, 0., 17. / 360., 61. / 1260. );
                 $this->to_auth_6 = self::getPowSeries( $e2, 0., 0., -383. / 45360. );
         }
-        
+
         /**
          * 
          * @param float $x
@@ -53,7 +54,7 @@ class EquivalentSphere
         {
                 return ( $p1 + ( $p2 + $p3 * $x ) * $x ) * $x;
         }
-        
+
         /**
          * 
          * @param float $x
@@ -66,7 +67,13 @@ class EquivalentSphere
         {
                 return $x + $t2 * sin( 2. * $x ) + $t4 * sin( 4. * $x ) + $t6 * sin( 6. * $x );
         }
- 
+
+        /**
+         * 
+         * @param float $lat
+         * @param float $lon
+         * @return float[]
+         */
         public static function spherToCart( $lat, $lon )
         {
                 $x = cos( $lat ) * cos( $lon );
@@ -75,6 +82,13 @@ class EquivalentSphere
                 return [ $x, $y, $z ];
         }
 
+        /**
+         * 
+         * @param float $x
+         * @param float $y
+         * @param float $z
+         * @return float[]
+         */
         public static function cartToSpher( $x, $y, $z )
         {
                 $lat = atan2( $z, sqrt( $x * $x + $y * $y ) );
@@ -82,6 +96,13 @@ class EquivalentSphere
                 return [$lat, $lon ];
         }
 
+        /**
+         * 
+         * @param float $x
+         * @param float $y
+         * @param float $a
+         * @return float[]
+         */
         public static function rotate( $x, $y, $a )
         {
                 $c = cos( $a );
@@ -91,6 +112,14 @@ class EquivalentSphere
                 return [ $u, $v ];
         }
 
+        /**
+         * 
+         * @param float $lat1
+         * @param float $lon1
+         * @param float $lat2
+         * @param float $lon2
+         * @return float[]
+         */
         public static function inverse( $lat1, $lon1, $lat2, $lon2 )
         {
                 $c    = self::spherToCart( $lat2, $lon2 );
@@ -111,7 +140,14 @@ class EquivalentSphere
                 return [ $dist, $azi ];
         }
 
-        
+        /**
+         * 
+         * @param float $lat1
+         * @param float $lon1
+         * @param float $dist
+         * @param float $azi
+         * @return float[]
+         */
         public static function direct( $lat1, $lon1, $dist, $azi )
         {
                 $c    = self::spherToCart( M_PI / 2 - $dist, M_PI - $azi );
@@ -129,7 +165,17 @@ class EquivalentSphere
                 $lon2 = $s[ 1 ];
                 return [ $lat2, $lon2 ];
         }
-        
+
+        /**
+         * 
+         * @param float $lat1
+         * @param float $lon1
+         * @param float $lat2
+         * @param float $lon2
+         * @param float $azi13
+         * @param float $azi23
+         * @return float[]
+         */
         public static function angular( $lat1, $lon1, $lat2, $lon2, $azi13, $azi23 )
         {
                 $failure    = false;
@@ -185,8 +231,17 @@ class EquivalentSphere
                 return [ $failure, $lat3, $lon3 ];
         }
 
-        
-        
+        /**
+         * 
+         * @param float $lat1
+         * @param float $lon1
+         * @param float $lat2
+         * @param float $lon2
+         * @param float $dist13
+         * @param float $dist23
+         * @param float $clockwise
+         * @return float[]
+         */
         public static function linear( $lat1, $lon1, $lat2, $lon2, $dist13, $dist23, $clockwise )
         {
                 $failure = false;
@@ -229,66 +284,4 @@ class EquivalentSphere
                         }
                 }
         }
-                        /*
-
-
-
-
-def angular(lat1, lon1, lat2, lon2, azi13, azi23):
-    failure = False
-    dist12, azi21 = inverse(lat2, lon2, lat1, lon1)
-    dist12, azi12 = inverse(lat1, lon1, lat2, lon2)
-    cos_beta1 = math.cos(azi13 - azi12)
-    sin_beta1 = math.sin(azi13 - azi12)
-    cos_beta2 = math.cos(azi21 - azi23)
-    sin_beta2 = math.sin(azi21 - azi23)
-    cos_dist12 = math.cos(dist12);
-    sin_dist12 = math.sin(dist12);
-    if sin_beta1 == 0. and sin_beta2 == 0.:
-        failure = True
-        lat3 = 0.
-        lon3 = 0.
-    elif sin_beta1 == 0.:
-        lat3 = lat2
-        lon3 = lon2
-    elif sin_beta2 == 0.:
-        lat3 = lat1
-        lon3 = lon1
-    elif sin_beta1 * sin_beta2 < 0.:
-        if math.fabs(sin_beta1) >= math.fabs(sin_beta2):
-            cos_beta2 = -cos_beta2
-            sin_beta2 = -sin_beta2
-        else:
-            cos_beta1 = -cos_beta1
-            sin_beta1 = -sin_beta1
-    else:
-        dist13 = math.atan2(math.fabs(sin_beta2) * sin_dist12, cos_beta2 * math.fabs(sin_beta1) + math.fabs(sin_beta2) * cos_beta1 * cos_dist12)
-        lat3, lon3 = direct(lat1, lon1, dist13, azi13)
-    return (failure, lat3, lon3)
-
-def linear(lat1, lon1, lat2, lon2, dist13, dist23, clockwise):
-    failure = False
-    if dist13 == 0.:
-        lat3 = lat1
-        lon3 = lon1
-    elif dist23 == 0.:
-        lat3 = lat2
-        lon3 = lon2
-    else:
-        dist12, azi12 = inverse(lat1, lon1, lat2, lon2)
-        cos_beta1 = (math.cos(dist23) - math.cos(dist12) * math.cos(dist13)) / (math.sin(dist12) * math.sin(dist13))
-        if math.fabs(cos_beta1) > 1.:
-            failure = True
-            lat3 = 0.
-            lon3 = 0.
-        else:
-            if clockwise:
-                azi13 = azi12 + math.acos(cos_beta1)
-            else:
-                azi13 = azi12 - math.acos(cos_beta1)
-            lat3, lon3 = direct(lat1, lon1, dist13, azi13)
-    return (failure, lat3, lon3)
-
- 
-  */        
 }
