@@ -1,0 +1,25 @@
+{
+    "name": "bigland/yii2-geo-area",
+    "description": "Geographical area of given polygon in WGS84",
+    "minimum-stability": "dev",
+    "license": "proprietary",
+    "authors": [
+        {
+            "name": "Anton Sadovnikoff",
+            "email": "sadovnikoff@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.4.0",
+	"yiisoft/yii2": "~2.0.6",
+        "league/geotools": ">=0.6.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^4"
+    },
+    "autoload": {
+        "psr-4": {
+            "bigland\\geo\\area\\": ""
+        }
+    }
+}
