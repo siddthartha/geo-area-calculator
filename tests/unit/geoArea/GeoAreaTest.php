@@ -24,10 +24,9 @@ class GeoAreaTest extends BaseTestCase
                                         [  52.622632, -18 ],
                                         [  52.622632,  54 ],
                                         [  10.812317,  54 ],
-                                        [ -10.812317,  18 ],
                                 ] 
                 );
 
-                $this->assertTrue( floor( $area ) == 33953235 );
+                $this->assertEquals( 33953235, floor( $area ) );
         }
 }
