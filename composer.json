@@ -1,5 +1,5 @@
 {
-    "name": "siddthartha/yii2-geo-area",
+    "name": "siddthartha/geo-area",
     "description": "Geographical area of given polygon in WGS84",
     "type": "library",
     "minimum-stability": "dev",
