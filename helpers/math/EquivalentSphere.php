@@ -10,7 +10,7 @@
  * источник: http://gis-lab.info/qa/polygon-area-sphere-ellipsoid.html
  */
 
-namespace bigland\geo\area\helpers\math;
+namespace siddthartha\geo\area\helpers\math;
 
 /**
  * Description of EquivalentSphere

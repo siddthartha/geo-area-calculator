@@ -10,10 +10,9 @@
  * источник: http://gis-lab.info/qa/polygon-area-sphere-ellipsoid.html
  */
 
-namespace bigland\geo\area\helpers;
+namespace siddthartha\geo\area\helpers;
 
-use bigland\geo\area\helpers\math\EquivalentSphere;
-use League\Geotools\Polygon\Polygon;
+use siddthartha\geo\area\helpers\math\EquivalentSphere;
 
 /**
  * Description of GeoAreaCalculator
@@ -26,25 +25,34 @@ class GeoAreaCalculator
         public static $a = 6378.137;
         public static $f = 1. / 298.257223563;
 
+        /**
+         * 
+         * @param float[][] $coordinates
+         * @return float
+         */
         public static function getArea( $coordinates )
         {
-                $eqSph   = new EquivalentSphere( self::$a, self::$f );
-                $polygon = new Polygon( $coordinates );
+                if( !is_array( $coordinates ) || !is_array( $coordinates[ 0 ] ) )
+                {
+                        throw new Exception( "Array of array of floats expected!" );
+                }
+
+                $eqSph = new EquivalentSphere( self::$a, self::$f );
 
                 $tau = 0.;
                 $i   = 1;
 
                 //TODO: обработка зацикливания координат последняя = первая
                 //$polygon->add($polygon->getIterator()->current());
-                
-                foreach( $polygon->getCoordinates() as $coordinate )
+
+                foreach( $coordinates as $coordinate )
                 {
-                        $lon = deg2rad( $coordinate->getLongitude() );
-                        $lat = deg2rad( $coordinate->getLatitude() );
+                        $lon = deg2rad( $coordinate[ 1 ] );
+                        $lat = deg2rad( $coordinate[ 0 ] );
 
                         // вычислить эквивалентную широту
                         $lat = EquivalentSphere::getTrigSeries( $lat, $eqSph->to_auth_2,
-                                                             $eqSph->to_auth_4, $eqSph->to_auth_6 );
+                                                                $eqSph->to_auth_4, $eqSph->to_auth_6 );
                         if( $i > 1 )
                         {
                                 // вычислить прямой азимут Qi - Qi+1
