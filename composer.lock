@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "329dab2757f7166e43b6262ebd3f1d78",
+    "hash": "9da97accdec305f47c614eab678085c3",
     "content-hash": "15b567d56295a60e625c73febe8ec4a0",
     "packages": [],
     "packages-dev": [
@@ -913,25 +913,25 @@
         },
         {
             "name": "symfony/yaml",
-            "version": "dev-master",
+            "version": "2.8.x-dev",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/yaml.git",
-                "reference": "e450ed0433ed8186d45c6e88b038c0c7b5d74851"
+                "reference": "a1a044d22b3eb82eb5c98ac2dcb240f1fa873b93"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/yaml/zipball/e450ed0433ed8186d45c6e88b038c0c7b5d74851",
-                "reference": "e450ed0433ed8186d45c6e88b038c0c7b5d74851",
+                "url": "https://api.github.com/repos/symfony/yaml/zipball/a1a044d22b3eb82eb5c98ac2dcb240f1fa873b93",
+                "reference": "a1a044d22b3eb82eb5c98ac2dcb240f1fa873b93",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.5.9"
+                "php": ">=5.3.9"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "3.0-dev"
+                    "dev-master": "2.8-dev"
                 }
             },
             "autoload": {
@@ -958,7 +958,7 @@
             ],
             "description": "Symfony Yaml Component",
             "homepage": "https://symfony.com",
-            "time": "2015-11-26 07:02:09"
+            "time": "2015-11-24 21:06:14"
         }
     ],
     "aliases": [],
