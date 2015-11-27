@@ -59,5 +59,5 @@ echo GeoAreaCalculator::getArea(
                 [ -10.812317, 18 ],
         ]
 );
-// 33953235824742.51
+// 33953235824742.51 (sq.meters)
 ```
