@@ -63,3 +63,5 @@ nbactions.xml
 nb-configuration.xml
 .nb-gradle/
 
+# nodejs
+node_modules/
