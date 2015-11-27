@@ -4,9 +4,52 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "9da97accdec305f47c614eab678085c3",
-    "content-hash": "15b567d56295a60e625c73febe8ec4a0",
-    "packages": [],
+    "hash": "e88a8ce8599409356315c159148a410d",
+    "content-hash": "ef4cc21d878a6d93b5a3c3d441d30eb9",
+    "packages": [
+        {
+            "name": "components/jquery",
+            "version": "2.1.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/components/jquery.git",
+                "reference": "7b1d1104656a092423fbfba13c5920e9bbba290c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/components/jquery/zipball/7b1d1104656a092423fbfba13c5920e9bbba290c",
+                "reference": "7b1d1104656a092423fbfba13c5920e9bbba290c",
+                "shasum": ""
+            },
+            "type": "component",
+            "extra": {
+                "component": {
+                    "scripts": [
+                        "jquery.js"
+                    ],
+                    "files": [
+                        "jquery.min.js",
+                        "jquery.min.map",
+                        "jquery-migrate.js",
+                        "jquery-migrate.min.js"
+                    ]
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "John Resig",
+                    "email": "jeresig@gmail.com"
+                }
+            ],
+            "description": "jQuery JavaScript Library",
+            "homepage": "http://jquery.com",
+            "time": "2015-05-08 05:04:47"
+        }
+    ],
     "packages-dev": [
         {
             "name": "doctrine/instantiator",
@@ -913,25 +956,25 @@
         },
         {
             "name": "symfony/yaml",
-            "version": "2.8.x-dev",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/yaml.git",
-                "reference": "a1a044d22b3eb82eb5c98ac2dcb240f1fa873b93"
+                "reference": "e450ed0433ed8186d45c6e88b038c0c7b5d74851"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/yaml/zipball/a1a044d22b3eb82eb5c98ac2dcb240f1fa873b93",
-                "reference": "a1a044d22b3eb82eb5c98ac2dcb240f1fa873b93",
+                "url": "https://api.github.com/repos/symfony/yaml/zipball/e450ed0433ed8186d45c6e88b038c0c7b5d74851",
+                "reference": "e450ed0433ed8186d45c6e88b038c0c7b5d74851",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.3.9"
+                "php": ">=5.5.9"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.8-dev"
+                    "dev-master": "3.0-dev"
                 }
             },
             "autoload": {
@@ -958,7 +1001,7 @@
             ],
             "description": "Symfony Yaml Component",
             "homepage": "https://symfony.com",
-            "time": "2015-11-24 21:06:14"
+            "time": "2015-11-26 07:02:09"
         }
     ],
     "aliases": [],
