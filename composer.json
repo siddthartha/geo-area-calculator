@@ -21,5 +21,8 @@
         "psr-4": {
             "siddthartha\\geo\\area\\": ""
         }
-    }
+    },
+    "config": {
+        "component-dir": "assets"
+    }    
 }

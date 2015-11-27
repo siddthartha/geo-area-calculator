@@ -7,6 +7,9 @@
 В корне модуля:
 ```sh
 .../geo-area-calculator$ composer install
+```
+Если необходимы js-тесты:
+```sh
 .../geo-area-calculator$ npm install
 ```
 # Тесты
