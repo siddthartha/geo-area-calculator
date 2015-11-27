@@ -1,0 +1,3 @@
+#!/bin/sh
+
+nodejs ./qunit-runner.js
