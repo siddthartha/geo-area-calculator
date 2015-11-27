@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>Test getGeoPolygonArea()</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="../components/require.css">
+    </head>
+    <body>
+        <div id="qunit"></div>
+        <div id="qunit-fixture"></div>        
+        <script src="../components/jquery/jquery.js" type="text/javascript"></script>
+        <script src="../components/qunit/qunit.js" type="text/javascript"></script>
+        <script src="geoarea.js" type="text/javascript"></script>
+        <script type="text/javascript">
+            var area = FFGeo.getGeoPolygonArea([
+                [-10.812317, 18],
+                [10.812317, -18],
+                [26.565051, 18],
+                [52.622632, -18],
+                [52.622632, 54],
+                [10.812317, 54],
+            ]);
+            
+            QUnit.test( "Total area of test polygon", function( assert ) {
+                assert.ok( Math.floor(area) === 33953235824742, area +" sq.meters" );
+            });
+        </script>
+    </body>
+</html>

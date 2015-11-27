@@ -7,6 +7,7 @@
  * портирование Python алгоритма на JavaScript 
  * источник: http://gis-lab.info/qa/polygon-area-sphere-ellipsoid.html
  */
+
 (function (G, U) {
     var UI = G.FFGeo || {};
 
@@ -193,10 +194,10 @@
         var tau = 0.;
         var i = 1;
 
-        $.each(polygon, function (i, c) {
+        for(var i= 1; i<=polygon.length; i++) {
             // прочитать долготу и широту
-            var lat = deg2rad(c[0]);
-            var lon = deg2rad(c[1]);
+            var lat = deg2rad(polygon[i-1][0]);
+            var lon = deg2rad(polygon[i-1][1]);
 
             // вычислить эквивалентную широту
             lat = trigSeries(lat, to_auth_2, to_auth_4, to_auth_6);
@@ -225,8 +226,7 @@
             }
             lon1 = lon;
             lat1 = lat;
-            i = i + 1;
-        });
+        }
 
         // вычислить поворот в 1-й вершине
         tau_i = 0.5 - (azi2 - azi0) / 2. / Math.PI;
