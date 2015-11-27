@@ -12,7 +12,6 @@
     ],
     "require": {
         "php": ">=5.4.0",
-        "components/jquery": "^2.1",
         "components/qunit": "^1.11"
     },
     "require-dev": {
