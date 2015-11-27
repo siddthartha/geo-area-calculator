@@ -2,12 +2,13 @@
     "name": "siddthartha/geo-area",
     "description": "Geographical area of given polygon in WGS84",
     "type": "library",
-    "minimum-stability": "dev",
+    "minimum-stability": "stable",
     "license": "MIT",
     "authors": [
         {
             "name": "Anton Sadovnikoff",
-            "email": "sadovnikoff@gmail.com"
+            "email": "sadovnikoff@gmail.com",
+            "role": "Developer"
         }
     ],
     "require": {
