@@ -19,23 +19,25 @@
     
     <target name="update_git">
         <echo>Получаем обновления из репозитариев</echo>
-        <exec command="git pull" />
+        <exec command="git pull" passthru="True" />
     </target>
 
     <target name="update_composer">
         <echo>Получаем обновления пакетов</echo>
-        <exec command="composer update" />
+        <exec command="composer update" passthru="True" />
     </target>
     
     <target name="update_composer_forced">
         <echo>Устанавливаем пакеты</echo>
         <exec command="rm -f ./composer.lock" />
-        <exec command="composer update" />
+        <exec command="composer update" passthru="True" />
     </target>
     
     <target name="test">
         <echo>${host.os}</echo>
-        <exec command="phpunit"/>
+        <echo>PhpUnit tests:</echo>
+        <exec command="phpunit" passthru="True" />
+        <echo>JavaScript Node-QUnit tests:</echo>
         <exec command="node ./qunit-runner.js" os="WINNT" passthru="True" />
         <exec command="nodejs ./qunit-runner.js" os="Linux" passthru="True" />
     </target>
