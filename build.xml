@@ -1,0 +1,48 @@
+<project name="geo-area-calculator" basedir="./" default="build">
+    <property name="vendor_dir" value="vendor" override="false"/>
+    <property name="tests_dir" value="tests/unit" override="false"/>
+
+    <target name="cleanup">
+        <echo>Очищаем временные файлы, вендоров и кэш</echo>
+        <delete>
+            <fileset dir="${vendor_dir}/">
+                <include name="**"/>
+            </fileset>
+            <fileset dir="${tests_dir}/runtime/cache">
+                <include name="**"/>
+            </fileset>
+        </delete>
+    </target>
+    
+    <target name="update" depends="update_git, update_composer">
+    </target>
+    
+    <target name="update_git">
+        <echo>Получаем обновления из репозитариев</echo>
+        <exec command="git pull" />
+    </target>
+
+    <target name="update_composer">
+        <echo>Получаем обновления пакетов</echo>
+        <exec command="composer update" />
+    </target>
+    
+    <target name="update_composer_forced">
+        <echo>Устанавливаем пакеты</echo>
+        <exec command="rm -f ./composer.lock" />
+        <exec command="composer update" />
+    </target>
+    
+    <target name="test">
+        <echo>${host.os}</echo>
+        <exec command="phpunit"/>
+        <exec command="node ./qunit-runner.js" os="WINNT" passthru="True" />
+        <exec command="nodejs ./qunit-runner.js" os="Linux" passthru="True" />
+    </target>
+
+    <target name="build" depends="update, test">
+    </target>
+    
+    <target name="rebuild" depends="cleanup, update_git, update_composer_forced, test">
+    </target>
+</project>
