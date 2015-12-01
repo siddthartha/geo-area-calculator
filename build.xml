@@ -14,8 +14,6 @@
         </delete>
     </target>
     
-    <target name="update" depends="update_git, update_composer">
-    </target>
     
     <target name="update_git">
         <echo>Получаем обновления из репозитариев</echo>
@@ -32,17 +30,24 @@
         <exec command="rm -f ./composer.lock" />
         <exec command="composer update" passthru="True" />
     </target>
-    
-    <target name="test">
-        <echo>${host.os}</echo>
+
+    <target name="phpunit">
         <echo>PhpUnit tests:</echo>
         <exec command="phpunit" passthru="True" />
+    </target>
+    
+    <target name="qunit">
         <echo>JavaScript Node-QUnit tests:</echo>
-        <exec command="node ./qunit-runner.js" os="WINNT" passthru="True" />
-        <exec command="nodejs ./qunit-runner.js" os="Linux" passthru="True" />
+        <exec command="node ./qunit-runner.js" />
     </target>
 
-    <target name="build" depends="update, test">
+    <target name="update" depends="update_git, update_composer">
+    </target>
+        
+    <target name="test" depends="phpunit, qunit">
+    </target>
+
+    <target name="build" depends="update">
     </target>
     
     <target name="rebuild" depends="cleanup, update_git, update_composer_forced, test">
