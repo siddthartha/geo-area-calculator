@@ -192,7 +192,6 @@
         var to_auth_6 = eSph[3];
 
         var tau = 0.;
-        var i = 1;
 
         for(var i= 1; i<=polygon.length; i++) {
             // прочитать долготу и широту

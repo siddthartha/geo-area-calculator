@@ -26,8 +26,18 @@ and open the template in the editor.
                 [10.812317, 54],
             ]);
             
+            var area2 = FFGeo.getGeoPolygonArea([
+                [-10.812317, 18],
+                [10.812317, -18],
+                [26.565051, 18],
+                [52.622632, -18],
+                [52.622632, 54],
+                [10.812317, 54],
+            ]);
+
             QUnit.test( "Total area of test polygon", function( assert ) {
-                assert.ok( Math.floor(area) === 33953235824742, area +" sq.meters" );
+                assert.ok( Math.floor(area) === Math.floor(area2), area +" sq.meters" );
+                assert.ok( Math.floor(area2) === 33953235824742, area2 +" sq.meters" );
             });
         </script>
     </body>
