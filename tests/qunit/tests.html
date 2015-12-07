@@ -17,27 +17,57 @@ and open the template in the editor.
         <script src="../../assets/qunit/qunit.js" type="text/javascript"></script>
         <script src="../../js/geoarea.js" type="text/javascript"></script>
         <script type="text/javascript">
-            var area = FFGeo.getGeoPolygonArea([
-                [-10.812317, 18],
-                [10.812317, -18],
-                [26.565051, 18],
-                [52.622632, -18],
-                [52.622632, 54],
-                [10.812317, 54],
-            ]);
-            
-            var area2 = FFGeo.getGeoPolygonArea([
-                [-10.812317, 18],
-                [10.812317, -18],
-                [26.565051, 18],
-                [52.622632, -18],
-                [52.622632, 54],
-                [10.812317, 54],
-            ]);
+            var polygon = [
+                [
+                    55.195251578295,
+                    38.731017914659
+                ],
+                [
+                    55.195168847224,
+                    38.730731728298
+                ],
+                [
+                    55.194486309338,
+                    38.730463428584
+                ],
+                [
+                    55.194248452477,
+                    38.729372343082
+                ],
+                [
+                    55.193172908072,
+                    38.728853630303
+                ],
+                [
+                    55.192748887392,
+                    38.731071574602
+                ],
+                [
+                    55.192779913449,
+                    38.731286214373
+                ],
+                [
+                    55.19303846298,
+                    38.731429307553
+                ],
+                [
+                    55.193969227394,
+                    38.731876473743
+                ],
+                [
+                    55.195158505829,
+                    38.732395186522
+                ],
+                [
+                    55.19532396784,
+                    38.73130410102
+                ]
+            ]
+
+            var area = FFGeo.getGeoPolygonArea( polygon );
 
             QUnit.test( "Total area of test polygon", function( assert ) {
-                assert.ok( Math.floor(area) === Math.floor(area2), area +" sq.meters" );
-                assert.ok( Math.floor(area2) === 33953235824742, area2 +" sq.meters" );
+                assert.ok( area === 36010.05142522189, area +" sq.meters " );
             });
         </script>
     </body>
