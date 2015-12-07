@@ -7,9 +7,8 @@
  * портирование Python алгоритма на JavaScript 
  * источник: http://gis-lab.info/qa/polygon-area-sphere-ellipsoid.html
  */
-
-(function (G, U) {
-    var UI = G.FFGeo || {};
+var FFGeo = (function () { 
+    var _this = {};
 
     function powSeries(x, p1, p2, p3) {
         return (p1 + (p2 + p3 * x) * x) * x;
@@ -148,7 +147,8 @@
 
 
     function linear(lat1, lon1, lat2, lon2, dist13, dist23, clockwise) {
-        failure = false;
+        var failure = false;
+        var lat3, lon3;
         if (dist13 === 0.) {
             lat3 = lat1;
             lon3 = lon1;
@@ -247,7 +247,7 @@
         return area;
     }
 
-    UI.getGeoPolygonArea = getGeoPolygonArea;
-    G.FFGeo = UI;
+    _this.getGeoPolygonArea = getGeoPolygonArea;
     
-}(this, undefined));
+    return _this; 
+}());
