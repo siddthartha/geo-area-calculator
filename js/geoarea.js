@@ -108,7 +108,7 @@
         var azi21 = c1[1];
 
         var c2 = inverse(lat1, lon1, lat2, lon2);
-        dist12 = c2[0];
+            dist12 = c2[0];
         var azi12 = c2[1];
         var cos_beta1 = Math.cos(azi13 - azi12);
         var sin_beta1 = Math.sin(azi13 - azi12);
@@ -156,7 +156,9 @@
             lat3 = lat2;
             lon3 = lon2;
         } else {
-            dist12, azi12 = inverse(lat1, lon1, lat2, lon2);
+            var tmp = inverse(lat1, lon1, lat2, lon2);
+            var dist12 = tmp[0];
+            var azi12 = tmp[1];
             cos_beta1 = (Math.cos(dist23) - Math.cos(dist12) * Math.cos(dist13)) / (Math.sin(dist12) * Math.sin(dist13));
             if (Math.fabs(cos_beta1) > 1.) {
                 failure = true;
