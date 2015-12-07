@@ -81,6 +81,101 @@
         return [dist, azi];
     }
 
+    function direct(lat1, lon1, dist, azi) {
+        var tmp = spherToCart(Math.PI / 2 - dist, Math.PI - azi);
+        var x = tmp[0];
+        var y = tmp[1];
+        var z = tmp[2];
+
+        tmp = rotate(z, x, lat1 - Math.PI / 2);
+        z = tmp[0];
+        x = tmp[1];
+
+        tmp = rotate(x, y, -lon1);
+        x = tmp[0];
+        y = tmp[1];
+
+        var c = cartToSpher(x, y, z);
+        var lat2 = c[0];
+        var lon2 = c[1];
+        return [lat2, lon2];
+    }
+
+    function angular(lat1, lon1, lat2, lon2, azi13, azi23) {
+        var failure = false;
+        var c1 = inverse(lat2, lon2, lat1, lon1);
+        var dist12 = c1[0];
+        var azi21 = c1[1];
+
+        var c2 = inverse(lat1, lon1, lat2, lon2);
+        dist12 = c2[0];
+        var azi12 = c2[1];
+        var cos_beta1 = Math.cos(azi13 - azi12);
+        var sin_beta1 = Math.sin(azi13 - azi12);
+        var cos_beta2 = Math.cos(azi21 - azi23);
+        var sin_beta2 = Math.sin(azi21 - azi23);
+        var cos_dist12 = Math.cos(dist12);
+        var sin_dist12 = Math.sin(dist12);
+	var lat3,lon3, dist13;
+
+        if (sin_beta1 === 0. && sin_beta2 === 0.) {
+            failure = true;
+            lat3 = 0.;
+            lon3 = 0.;
+        } else if (sin_beta1 === 0.) {
+            lat3 = lat2;
+            lon3 = lon2;
+        } else if (sin_beta2 === 0.) {
+            lat3 = lat1;
+            lon3 = lon1;
+        } else if (sin_beta1 * sin_beta2 < 0.) {
+            if (Math.fabs(sin_beta1) >= Math.fabs(sin_beta2)) {
+                cos_beta2 = -cos_beta2;
+                sin_beta2 = -sin_beta2;
+            } else {
+                cos_beta1 = -cos_beta1;
+                sin_beta1 = -sin_beta1;
+            }
+        } else {
+            dist13 = Math.atan2(Math.fabs(sin_beta2) * sin_dist12, cos_beta2 * Math.fabs(sin_beta1) + Math.fabs(sin_beta2) * cos_beta1 * cos_dist12);
+            var c3 = direct(lat1, lon1, dist13, azi13);
+            lat3 = c3[0];
+            lon3 = c3[1];
+
+        }
+        return [failure, lat3, lon3];
+    }
+
+
+    function linear(lat1, lon1, lat2, lon2, dist13, dist23, clockwise) {
+        failure = false;
+        if (dist13 === 0.) {
+            lat3 = lat1;
+            lon3 = lon1;
+        } else if (dist23 === 0.) {
+            lat3 = lat2;
+            lon3 = lon2;
+        } else {
+            dist12, azi12 = inverse(lat1, lon1, lat2, lon2);
+            cos_beta1 = (Math.cos(dist23) - Math.cos(dist12) * Math.cos(dist13)) / (Math.sin(dist12) * Math.sin(dist13));
+            if (Math.fabs(cos_beta1) > 1.) {
+                failure = true;
+                lat3 = 0.;
+                lon3 = 0.;
+            } else {
+                if (clockwise) {
+                    azi13 = azi12 + Math.acos(cos_beta1);
+                } else {
+                    azi13 = azi12 - Math.acos(cos_beta1);
+                }
+                c = direct(lat1, lon1, dist13, azi13);
+                lat3 = c[0];
+                lon3 = c[1];
+            }
+        }
+        return [failure, lat3, lon3];
+    }
+
     function getGeoPolygonArea(polygon)
     {
         // последняя точка копия первой
