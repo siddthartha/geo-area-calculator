@@ -30,7 +30,7 @@ JavaScript
 JavaScript
 -----
 ```js
-alert( FFGeo.getGeoPolygonArea(
+alert( ffGeo.getGeoPolygonArea(
 			[
 				[ -10.812317, 18 ],
 				[ 10.812317, -18 ],
