@@ -17,41 +17,6 @@ and open the template in the editor.
         <script src="../../assets/qunit/qunit.js" type="text/javascript"></script>
         <script src="../../js/geoarea.js" type="text/javascript"></script>
         <script type="text/javascript">
-            function getAreaShort( polygon ) {
-                if (polygon.length < 3) {
-                    throw new Error('polygon should have at least three points');
-                }
-                // first -> new last
-                polygon.push( polygon[0] );
-                var total = 0;
-                var previous = polygon[0];
-                var cx =0;
-                var cy =0;
-
-            for (var i = 1; i < polygon.length; i++) {
-                cx = cx + polygon[i][1];
-                cy = cy + polygon[i][0];
-            }
-                    cx = cx / polygon.length;
-                    cy = cy / polygon.length;
-
-                var xRef = cx+1;
-                var yRef = cy+1;
-
-                for (var i = 1; i < polygon.length; i++) {
-                    var current = polygon[i];
-                    var earthRadians = (6378137 * Math.PI / 180);
-                    // convert to cartesian coordinates in meters, note this not very exact
-                    var x1 = ((previous[1] - xRef) * earthRadians) * Math.cos(yRef * Math.PI / 180);
-                    var y1 = ((previous[0] - yRef) * earthRadians);
-                    var x2 = ((current[1] - xRef) * earthRadians) * Math.cos(yRef * Math.PI / 180);
-                    var y2 = ((current[0] - yRef) * earthRadians);
-                    total += (x1 * y2) - (x2 * y1);
-                    previous = current;
-                }
-                return 0.5 * Math.abs(total);
-            };
-           
             // кадастровый участок из одного полигона 69:14:0000016:84 
             // кадастровая площадь 36.52 га
             var polygon = [
@@ -61,7 +26,7 @@ and open the template in the editor.
             var area = FFGeo.getGeoPolygonArea( polygon );
 
             QUnit.test( "Total area of test polygon 36.52 ha", function( assert ) {
-                assert.ok( area === 363024.4218368292, area +" sq.meters vs " + getAreaShort( polygon ) );
+                assert.equal( area, 365200.0, area +" sq.meters" );
             });
             
             // кадастровый участок из одного полигона 69:04:0000012:914
@@ -73,7 +38,7 @@ and open the template in the editor.
             var area2 = FFGeo.getGeoPolygonArea( polygon2 );
 
             QUnit.test( "Total area of test polygon 171.42 ha", function( assert ) {
-                assert.ok( area2 === 1725575.039766004, area2 +" sq.meters vs " + getAreaShort( polygon2 ) );
+                assert.equal( area2, 1714200.0, area2 +" sq.meters" );
             });
 
         </script>
