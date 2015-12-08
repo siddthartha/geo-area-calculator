@@ -2,7 +2,7 @@
     "name": "geoarea",
     "version": "0.0.1",
     "description": "Calculates area of geo polygon in WGS84 coordinates",
-    "main": "js/geoarea.js",
+    "main": "index.js",
     "directories": {
         "test": "tests/qunit"
     },
