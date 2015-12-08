@@ -7,7 +7,7 @@
  * портирование Python алгоритма на JavaScript 
  * источник: http://gis-lab.info/qa/polygon-area-sphere-ellipsoid.html
  */
-FFGeo = (function () { 
+ffGeo = (function () { 
     var _this = {};
 
     function powSeries(x, p1, p2, p3) {
