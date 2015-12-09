@@ -1,0 +1,27 @@
+{
+  "name": "geoarea",
+  "description": "Calculates area of geo polygon in WGS84 coordinates",
+  "main": "js/geoarea.js",
+  "authors": [
+    "Anton Sadovnikoff"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "wgs",
+    "84",
+    "polygon",
+    "area",
+    "coordinates"
+  ],
+  "homepage": "https://github.com/siddthartha/geo-area-calculator",
+  "moduleType": [],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests",
+    "vendor",
+    "helpers"
+  ]
+}
